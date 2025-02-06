@@ -201,7 +201,7 @@ class AppWidgets {
     double fSize = 18,
     Color fColor = AppColors.white,
     Color bgColor = AppColors.primaryBgColor,
-    FontWeight fWeight = FontWeight.w700,
+    FontWeight fWeight = FontWeight.w500,
     List<Widget>? actions,
     Widget? leading,
     bool centertitle = false,
@@ -212,26 +212,7 @@ class AppWidgets {
   }) {
     return AppBar(
       title: isWidgetExceptText ??
-          Text(
-            title,
-            style: AppTextStyles.appTextStyle(
-              color: fColor,
-              fontSize: fSize,
-              fontWeight: fWeight,
-            ),
-          ),
-      flexibleSpace: isGradientAppBar
-          ? Stack(
-              children: [
-                Container(
-                  color: AppColors.primaryBgColor,
-                ),
-                Container(
-                  color: AppColors.white.withOpacity(0.09),
-                ),
-              ],
-            )
-          : null,
+          Text(title, style: AppTextStyles.appTextStyle(color: fColor, fontSize: fSize, fontWeight: fWeight)),
       actions: actions,
       leading: leading,
       automaticallyImplyLeading: false,

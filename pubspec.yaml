@@ -41,6 +41,8 @@ dependencies:
   flutter_screenutil: ^5.0.1+2
   page_transition: ^2.0.4
   google_fonts: ^6.2.1
+  sqflite: ^2.3.3
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:
