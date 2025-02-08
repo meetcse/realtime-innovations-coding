@@ -5,7 +5,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:realtime_innovations_coding/routes/routes_name_constants.dart';
-import 'package:realtime_innovations_coding/screens/employee_list_screen.dart';
+import 'package:realtime_innovations_coding/screens/employee/add_employee/add_employee_details_screen.dart';
+import 'package:realtime_innovations_coding/screens/employee/employee_list_screen.dart';
 import 'package:realtime_innovations_coding/screens/splash/splash_screen.dart';
 import 'package:realtime_innovations_coding/utils/page_utils.dart';
 
@@ -26,6 +27,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       break;
     case RoutesNameConstants.employeeListScreen:
       _pageName = const EmployeeListScreen();
+
+      break;
+    case RoutesNameConstants.addEmployeeDetailsScreen:
+      _pageName = const AddEmployeeDetailsScreen();
 
       break;
   }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realtime_innovations_coding/bloc/employee/employee_list_screen_cubit.dart';
 import 'package:realtime_innovations_coding/bloc/employee/employee_list_screen_state.dart';
+import 'package:realtime_innovations_coding/routes/routes_name_constants.dart';
 import 'package:realtime_innovations_coding/utils/app_images_path.dart';
 import 'package:realtime_innovations_coding/utils/app_strings.dart';
+import 'package:realtime_innovations_coding/utils/page_utils.dart';
 import 'package:realtime_innovations_coding/widgets/app_widgets.dart';
 import 'package:realtime_innovations_coding/widgets/material/common_scaffold.dart';
 
@@ -19,7 +21,7 @@ class EmployeeListScreen extends StatelessWidget {
         appBarTitle: AppStrings.employeeList,
         body: const ELMainBody(),
         onFloatingActionButtonTap: () {
-          //
+          PageUtils.pushNamed(context, RoutesNameConstants.addEmployeeDetailsScreen);
         },
       ),
     );

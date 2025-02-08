@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SplashScreenCubit()..init(context),
-      child: const CommonScaffoldScreen(body: SSMainBody()),
+      child: const CommonScaffoldScreen(isShowAppBar: false, body: SSMainBody()),
     );
   }
 }

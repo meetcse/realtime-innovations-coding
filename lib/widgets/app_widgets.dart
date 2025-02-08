@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,23 @@ class AppWidgets {
       height: height.h,
       width: width?.w,
     );
+  }
+
+  /// size defaults to 24
+  static Widget icon(IconData icon, {double size = 24, Color? color}) {
+    return Icon(icon, size: size.r, color: color);
+  }
+
+  static EdgeInsets edgeInsetsAll(double value) {
+    return EdgeInsets.all(value).r;
+  }
+
+  static EdgeInsets edgeInsetsSymmetric({double vertical = 0, double horizontal = 0}) {
+    return EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical).r;
+  }
+
+  static EdgeInsets edgeInsetsOnly({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0}) {
+    return EdgeInsets.only(left: left, right: right, top: top, bottom: bottom).r;
   }
 
   static Widget backButton(BuildContext context, {Function? onTap, Color? color}) {
@@ -72,6 +90,7 @@ class AppWidgets {
     Color? filledColor,
     FocusNode? focusNode,
     bool? readOnly,
+    Function()? onTap,
   }) {
     return TextFormField(
       key: key,
@@ -88,6 +107,7 @@ class AppWidgets {
       onChanged: (value) {
         if (onChanged != null) return onChanged(value);
       },
+      onTap: onTap,
       decoration: InputDecoration(
         isDense: true,
         labelText: labelText,
@@ -104,16 +124,16 @@ class AppWidgets {
         fillColor: AppColors.white,
         filled: filled,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(enabledBorderRadius ?? 8),
+          borderRadius: BorderRadius.circular(enabledBorderRadius ?? 4),
           borderSide: BorderSide(
-            color: enableBorderColor ?? AppColors.borderColor,
+            color: enableBorderColor ?? AppColors.textFieldBorderColor,
             width: enabledBorderWidht ?? 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(focusedBorderRadius ?? 8),
+          borderRadius: BorderRadius.circular(focusedBorderRadius ?? 4),
           borderSide: BorderSide(
-            color: focusBorderColor ?? AppColors.borderColor,
+            color: focusBorderColor ?? AppColors.primaryBgColor,
             width: focusedBorderWidht ?? 1,
           ),
         ),
@@ -138,8 +158,6 @@ class AppWidgets {
     FontWeight? fontWeight,
     double? fontSize,
     EdgeInsets? buttonPadding,
-    Widget? centerChildWidget,
-    bool isWidgetExceptText = false,
     Key? key,
   }) {
     return Container(
@@ -160,11 +178,11 @@ class AppWidgets {
             },
           ),
           padding: MaterialStateProperty.all(
-            buttonPadding ?? const EdgeInsets.symmetric(vertical: 10),
+            buttonPadding ?? const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 24),
+              borderRadius: BorderRadius.circular(borderRadius ?? 6),
               side: BorderSide(
                 width: borderWidth ?? 1,
                 color: isBorder ? borderColor ?? AppColors.primaryBgColor : Colors.transparent,
@@ -172,25 +190,9 @@ class AppWidgets {
             ),
           ),
         ),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            icon ?? Container(),
-            Expanded(
-              child: Center(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  child: isWidgetExceptText
-                      ? centerChildWidget ?? Container()
-                      : Text(
-                          text,
-                          style: AppTextStyles.buttonTextStyle(
-                              fontWeight: fontWeight, textColor: textColor, fontSize: fontSize),
-                        ),
-                ),
-              ),
-            ),
-          ],
+        child: Text(
+          text,
+          style: AppTextStyles.buttonTextStyle(fontWeight: fontWeight, textColor: textColor, fontSize: fontSize),
         ),
       ),
     );
