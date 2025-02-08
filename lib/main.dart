@@ -1,9 +1,19 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:realtime_innovations_coding/routes/routes.dart';
 import 'package:realtime_innovations_coding/screens/splash/splash_screen.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() {
+  if (kIsWeb) {
+    // Initialize FFI
+
+    databaseFactory = databaseFactoryFfiWeb;
+  }
   runApp(const MyApp());
 }
 
@@ -14,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(428, 926),
+        designSize: kIsWeb ? const Size(1000, 1000) : const Size(428, 926),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Employee',

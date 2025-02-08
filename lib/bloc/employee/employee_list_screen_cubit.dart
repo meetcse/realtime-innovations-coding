@@ -93,12 +93,10 @@ class EmployeeListScreenCubit extends Cubit<EmployeeListScreenState> {
           [EmployeeDbServices().fetchCurrentEmployees(), EmployeeDbServices().fetchPreviousEmployees()]);
 
       if (data.isNotEmpty) {
-        if (data[0].isNotEmpty) {
-          _currentEmployeesList.clear();
-          _currentEmployeesList.addAll(data[0]);
-        }
+        _currentEmployeesList.clear();
+        _currentEmployeesList.addAll(data[0]);
 
-        if (data[1].isNotEmpty) {
+        if (data.length >= 2) {
           _previousEmployeesList.clear();
           _previousEmployeesList.addAll(data[1]);
         }
