@@ -6,4 +6,11 @@ class AppStrings {
   static const String noDate = "No date";
   static const String cancel = "Cancel";
   static const String save = "Save";
+  static const String productDesigner = "Product Designer";
+  static const String flutterDeveloper = "Flutter Developer";
+  static const String qaTester = "QA Tester";
+  static const String productOwner = "Product Owner";
+  static const String today = "Today";
+  static const String next = "Next";
+  static const String afterOneWeek = "After 1 week";
 }

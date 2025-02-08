@@ -8,3 +8,11 @@ abstract class AddEmployeeDetailsScreenState {
 class AEDSInitialState extends AddEmployeeDetailsScreenState {
   const AEDSInitialState();
 }
+
+class AEDSTempState extends AddEmployeeDetailsScreenState {
+  const AEDSTempState();
+}
+
+class AEDSDatePickerMonthChangeState extends AddEmployeeDetailsScreenState {
+  const AEDSDatePickerMonthChangeState();
+}

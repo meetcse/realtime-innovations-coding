@@ -13,11 +13,11 @@ class AppTextStyles {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        fontSize: fontSize?.sp ?? 11.sp,
+        fontSize: fontSize?.sp ?? 16.sp,
         height: height,
         fontStyle: FontStyle.normal,
-        fontWeight: fontWeight ?? FontWeight.normal,
-        color: color ?? AppColors.white,
+        fontWeight: fontWeight ?? FontWeight.w400,
+        color: color ?? AppColors.appTextColor,
         letterSpacing: letterSpacing,
       ),
     );
@@ -31,7 +31,7 @@ class AppTextStyles {
         fontSize: fontSize?.sp ?? 16.sp,
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
-        color: AppColors.white,
+        color: AppColors.appTextColor,
       ),
     );
   }
