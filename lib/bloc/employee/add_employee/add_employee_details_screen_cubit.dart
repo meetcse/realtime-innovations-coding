@@ -37,7 +37,8 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
 
   void initialize(EmployeeModel? employeeModel) {
     _editEmployeeModel = employeeModel;
-
+    _startDateController.text = getDateDisplayText(true);
+    _endDateController.text = getDateDisplayText(false);
     if (_editEmployeeModel != null) {
       _employeeNameController.text = _editEmployeeModel!.name ?? "";
       _selectRoleController.text = _editEmployeeModel!.role ?? "";

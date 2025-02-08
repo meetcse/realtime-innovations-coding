@@ -23,4 +23,5 @@ class AppStrings {
   static const String previousEmployees = "Previous employees";
   static const String swipeLeftToDelete = "Swipe left to delete";
   static const String employeeDataDeleted = "Employee data has been deleted";
+  static const String noEmpRcordsFound = "No employee records found";
 }

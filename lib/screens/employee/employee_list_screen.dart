@@ -236,8 +236,16 @@ class ELNoEmpRecordsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AppWidgets.imageFromAssetWidget(AppImagesPath.noEmpRecordsImage, height: 245, widht: 261),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: AppWidgets.imageFromAssetWidget(AppImagesPath.noEmpRecordsImage, height: 245, widht: 261),
+        ),
+        AppWidgets.spacingWidget(4),
+        AppWidgets.textWidget(AppStrings.noEmpRcordsFound,
+            textStyle: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.w500))
+      ],
     );
   }
 }
