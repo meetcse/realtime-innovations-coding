@@ -285,16 +285,21 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
     } else if (startDateController.text.isEmpty) {
       emit(const AEDSShowToastState(AppStrings.startDateNotEmpty));
       return;
+    } else if (_endDateController.text.isNotEmpty) {
+      if (_endDateDateTime != null && _startDateDateTime.isAfter(_endDateDateTime!)) {
+        emit(const AEDSShowToastState(AppStrings.endDateAfterStartDate));
+        return;
+      }
     }
 
-    await _storeEmployeeDetails();
+    await _storeOrUpdateEmployeeDetails();
 
     popRoute(context);
   }
 
 //! ---- db calls ----
 
-  Future<void> _storeEmployeeDetails() async {
+  Future<void> _storeOrUpdateEmployeeDetails() async {
     try {
       EmployeeModel employee = EmployeeModel();
 
@@ -303,8 +308,13 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
       employee.startDate = DateFormat("d MMM yyyy").format(_startDateDateTime);
       employee.endDate = _endDateDateTime == null ? null : DateFormat("d MMM yyyy").format(_endDateDateTime!);
 
-      int store = await EmployeeDbServices().insertEmployees(employee);
-      log("Stored employees : " + store.toString());
+      if (_editEmployeeModel != null) {
+        employee.id = _editEmployeeModel!.id;
+        employee.isDeleted = _editEmployeeModel!.isDeleted;
+        await EmployeeDbServices().updateEmployee(employee);
+      } else {
+        await EmployeeDbServices().insertEmployees(employee);
+      }
     } catch (error) {
       log("Error in storing employees : " + error.toString());
     }
