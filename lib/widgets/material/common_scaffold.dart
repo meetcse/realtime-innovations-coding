@@ -11,6 +11,7 @@ class CommonScaffoldScreen extends StatelessWidget {
       this.appBarActions,
       this.onFloatingActionButtonTap,
       this.isShowAppBar = true,
+      this.backgroundColor,
       this.isBackButtonEnabled = false})
       : super(key: key);
 
@@ -21,11 +22,12 @@ class CommonScaffoldScreen extends StatelessWidget {
   final bool isBackButtonEnabled;
   final Function()? onFloatingActionButtonTap;
   final bool isShowAppBar;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: backgroundColor ?? AppColors.white,
       appBar: isShowAppBar ? _buildAppBar(context) : null,
       body: body,
       floatingActionButton: onFloatingActionButtonTap != null

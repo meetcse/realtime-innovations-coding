@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realtime_innovations_coding/utils/app_colors.dart';
 import 'package:realtime_innovations_coding/utils/app_text_styles.dart';
 import 'package:realtime_innovations_coding/utils/page_utils.dart';

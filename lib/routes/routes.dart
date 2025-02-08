@@ -4,6 +4,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:realtime_innovations_coding/models/employee_model.dart';
+import 'package:realtime_innovations_coding/routes/arguments_constants.dart';
 import 'package:realtime_innovations_coding/routes/routes_name_constants.dart';
 import 'package:realtime_innovations_coding/screens/employee/add_employee/add_employee_details_screen.dart';
 import 'package:realtime_innovations_coding/screens/employee/employee_list_screen.dart';
@@ -30,7 +32,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
 
       break;
     case RoutesNameConstants.addEmployeeDetailsScreen:
-      _pageName = const AddEmployeeDetailsScreen();
+      _pageName = AddEmployeeDetailsScreen(
+          employeeModel: _arguments[RoutesArgumentsConstants.employeeModel] != null
+              ? _arguments[RoutesArgumentsConstants.employeeModel] as EmployeeModel
+              : null);
 
       break;
   }

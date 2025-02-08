@@ -4,8 +4,9 @@ class EmployeeModel {
   String? role;
   String? startDate;
   String? endDate;
+  int? isDeleted;
 
-  EmployeeModel({this.endDate, this.id, this.name, this.role, this.startDate});
+  EmployeeModel({this.endDate, this.id, this.name, this.role, this.startDate, this.isDeleted});
 
   EmployeeModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +14,7 @@ class EmployeeModel {
     role = json['role'];
     startDate = json['startDate'];
     endDate = json['endDate'];
+    isDeleted = json['isDeleted'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +24,7 @@ class EmployeeModel {
     data['name'] = name;
     data['startDate'] = startDate;
     data['endDate'] = endDate;
+    data['isDeleted'] = isDeleted;
 
     return data;
   }

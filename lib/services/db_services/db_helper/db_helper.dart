@@ -43,6 +43,7 @@ class DatabaseHelper {
       path = join(databasesPath, 'employeedb.db');
       Database db = await openDatabase(path,
           version: _dbVersion, onCreate: _onCreate, onUpgrade: _onUpgrade, onConfigure: (db) => _onConfigure(db, 0));
+      return db;
     } catch (e, st) {
       log("Error in initializing db : " + e.toString() + ", stacktrace : " + st.toString());
       rethrow;

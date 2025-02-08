@@ -16,4 +16,8 @@ class AppStrings {
   static const String employeeNameNotEmpty = "Employee Name should not be empty";
   static const String roleNotEmptu = "Role should not be empty";
   static const String startDateNotEmpty = "Start date should not be empty";
+  static const String from = "From";
+  static const String currentEmployees = "Current employees";
+  static const String previousEmployees = "Previous employees";
+  static const String swipeLeftToDelete = "Swipe left to delete";
 }

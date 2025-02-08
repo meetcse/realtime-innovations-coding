@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realtime_innovations_coding/bloc/employee/add_employee/add_employee_details_screen_cubit.dart';
 import 'package:realtime_innovations_coding/bloc/employee/add_employee/add_employee_details_screen_state.dart';
 import 'package:realtime_innovations_coding/enums/role_enums.dart';
+import 'package:realtime_innovations_coding/models/employee_model.dart';
 import 'package:realtime_innovations_coding/utils/app_colors.dart';
 import 'package:realtime_innovations_coding/utils/app_images_path.dart';
 import 'package:realtime_innovations_coding/utils/app_strings.dart';
@@ -15,12 +16,14 @@ import 'package:realtime_innovations_coding/widgets/material/common_scaffold.dar
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddEmployeeDetailsScreen extends StatelessWidget {
-  const AddEmployeeDetailsScreen({super.key});
+  const AddEmployeeDetailsScreen({super.key, this.employeeModel});
+
+  final EmployeeModel? employeeModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AddEmployeeDetailsScreenCubit(),
+      create: (_) => AddEmployeeDetailsScreenCubit()..initialize(employeeModel),
       child: const CommonScaffoldScreen(appBarTitle: AppStrings.addEmployeeDetails, body: AEDMainBody()),
     );
   }

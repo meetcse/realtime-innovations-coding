@@ -15,7 +15,8 @@ class EmployeeDbServices {
           name TEXT,
           role TEXT,
           startDate TEXT,
-          endDate TEXT
+          endDate TEXT,
+          isDeleted INTEGER DEFAULT 0
         )
       """,
     );
@@ -64,6 +65,57 @@ class EmployeeDbServices {
 
       if (dbClient != null) {
         queryResult = await dbClient.query(_employeeTableName);
+
+        if (queryResult.isNotEmpty) {
+          for (var data in queryResult) {
+            employees.add(EmployeeModel.fromJson(data));
+          }
+        }
+      }
+    } catch (error) {
+      log("Error in fetch all employess : " + error.toString());
+    }
+
+    return employees;
+  }
+
+  Future<List<EmployeeModel>> fetchCurrentEmployees() async {
+    List<EmployeeModel> employees = [];
+    try {
+      Database? dbClient = await DatabaseHelper.getDatabase();
+      List<Map<String, Object?>> queryResult = [];
+
+      if (dbClient != null) {
+        queryResult = await dbClient.rawQuery('''
+SELECT * FROM $_employeeTableName
+WHERE endDate IS NULL
+''');
+
+        log("Query result for current employees : " + queryResult.toString());
+        if (queryResult.isNotEmpty) {
+          for (var data in queryResult) {
+            employees.add(EmployeeModel.fromJson(data));
+          }
+        }
+      }
+    } catch (error) {
+      log("Error in fetch all employess : " + error.toString());
+    }
+
+    return employees;
+  }
+
+  Future<List<EmployeeModel>> fetchPreviousEmployees() async {
+    List<EmployeeModel> employees = [];
+    try {
+      Database? dbClient = await DatabaseHelper.getDatabase();
+      List<Map<String, Object?>> queryResult = [];
+
+      if (dbClient != null) {
+        queryResult = await dbClient.rawQuery('''
+SELECT * FROM $_employeeTableName
+WHERE endDate IS NOT NULL
+''');
 
         if (queryResult.isNotEmpty) {
           for (var data in queryResult) {

@@ -21,6 +21,8 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
   final TextEditingController _endDateController = TextEditingController();
   final DateRangePickerController _dateRangePickerController = DateRangePickerController();
 
+  EmployeeModel? _editEmployeeModel;
+
   DateTime _startDateDateTime = DateTime.now();
   DateTime? _endDateDateTime;
 
@@ -32,6 +34,22 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
 
   DateTime get startDateDateTime => _startDateDateTime;
   DateTime? get endDateDateTime => _endDateDateTime;
+
+  void initialize(EmployeeModel? employeeModel) {
+    _editEmployeeModel = employeeModel;
+
+    if (_editEmployeeModel != null) {
+      _employeeNameController.text = _editEmployeeModel!.name ?? "";
+      _selectRoleController.text = _editEmployeeModel!.role ?? "";
+      _startDateDateTime = DateFormat("d MMM yyyy").parse(_editEmployeeModel!.startDate!);
+      if (_editEmployeeModel!.endDate != null && _editEmployeeModel!.endDate!.isNotEmpty) {
+        _endDateDateTime = DateFormat("d MMM yyyy").parse(_editEmployeeModel!.endDate!);
+      }
+
+      _startDateController.text = getDateDisplayText(true);
+      _endDateController.text = getDateDisplayText(false);
+    }
+  }
 
   void setSelectedRole(BuildContext context, RoleEnums role) {
     _selectRoleController.text = role.toStringValue();
@@ -285,7 +303,8 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
       employee.startDate = DateFormat("d MMM yyyy").format(_startDateDateTime);
       employee.endDate = _endDateDateTime == null ? null : DateFormat("d MMM yyyy").format(_endDateDateTime!);
 
-      await EmployeeDbServices().insertEmployees(employee);
+      int store = await EmployeeDbServices().insertEmployees(employee);
+      log("Stored employees : " + store.toString());
     } catch (error) {
       log("Error in storing employees : " + error.toString());
     }
