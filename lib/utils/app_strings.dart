@@ -13,4 +13,7 @@ class AppStrings {
   static const String today = "Today";
   static const String next = "Next";
   static const String afterOneWeek = "After 1 week";
+  static const String employeeNameNotEmpty = "Employee Name should not be empty";
+  static const String roleNotEmptu = "Role should not be empty";
+  static const String startDateNotEmpty = "Start date should not be empty";
 }

@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:realtime_innovations_coding/bloc/employee/add_employee/add_employee_details_screen_state.dart';
 import 'package:realtime_innovations_coding/enums/role_enums.dart';
+import 'package:realtime_innovations_coding/models/employee_model.dart';
+import 'package:realtime_innovations_coding/services/db_services/employee_db_service/employee_db_services.dart';
 import 'package:realtime_innovations_coding/utils/app_strings.dart';
 import 'package:realtime_innovations_coding/utils/page_utils.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -254,4 +256,40 @@ class AddEmployeeDetailsScreenCubit extends Cubit<AddEmployeeDetailsScreenState>
   }
 
 //! ----- date picker end ----
+
+  void onSaveEmpoyeeDetailsTap(BuildContext context) async {
+    if (_employeeNameController.text.isEmpty) {
+      emit(const AEDSShowToastState(AppStrings.employeeNameNotEmpty));
+      return;
+    } else if (_selectRoleController.text.isEmpty) {
+      emit(const AEDSShowToastState(AppStrings.roleNotEmptu));
+      return;
+    } else if (startDateController.text.isEmpty) {
+      emit(const AEDSShowToastState(AppStrings.startDateNotEmpty));
+      return;
+    }
+
+    await _storeEmployeeDetails();
+
+    popRoute(context);
+  }
+
+//! ---- db calls ----
+
+  Future<void> _storeEmployeeDetails() async {
+    try {
+      EmployeeModel employee = EmployeeModel();
+
+      employee.name = _employeeNameController.text;
+      employee.role = _selectRoleController.text;
+      employee.startDate = DateFormat("d MMM yyyy").format(_startDateDateTime);
+      employee.endDate = _endDateDateTime == null ? null : DateFormat("d MMM yyyy").format(_endDateDateTime!);
+
+      await EmployeeDbServices().insertEmployees(employee);
+    } catch (error) {
+      log("Error in storing employees : " + error.toString());
+    }
+  }
+
+//! ---- db calls end ----
 }

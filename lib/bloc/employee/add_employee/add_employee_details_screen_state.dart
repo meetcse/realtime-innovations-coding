@@ -16,3 +16,18 @@ class AEDSTempState extends AddEmployeeDetailsScreenState {
 class AEDSDatePickerMonthChangeState extends AddEmployeeDetailsScreenState {
   const AEDSDatePickerMonthChangeState();
 }
+
+class AEDSShowToastState extends AddEmployeeDetailsScreenState {
+  final String message;
+  const AEDSShowToastState(this.message);
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return false;
+
+    return o is AEDSShowToastState && o.message == message;
+  }
+
+  @override
+  int get hashCode => message.hashCode;
+}

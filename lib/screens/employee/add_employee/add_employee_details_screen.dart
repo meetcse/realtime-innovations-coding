@@ -31,14 +31,21 @@ class AEDMainBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Expanded(child: AEDEmployeeDetailsColumn()),
-        const Divider(color: AppColors.borderColor, height: 1),
-        AppWidgets.spacingWidget(12),
-        const AEDBottomButtonsRow(),
-        AppWidgets.spacingWidget(12),
-      ],
+    return BlocListener<AddEmployeeDetailsScreenCubit, AddEmployeeDetailsScreenState>(
+      listener: (context, state) {
+        if (state is AEDSShowToastState) {
+          AppWidgets.showToast(state.message);
+        }
+      },
+      child: Column(
+        children: [
+          const Expanded(child: AEDEmployeeDetailsColumn()),
+          const Divider(color: AppColors.borderColor, height: 1),
+          AppWidgets.spacingWidget(12),
+          const AEDBottomButtonsRow(),
+          AppWidgets.spacingWidget(12),
+        ],
+      ),
     );
   }
 }
@@ -48,6 +55,8 @@ class AEDBottomButtonsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<AddEmployeeDetailsScreenCubit>(context);
+
     return Container(
       margin: AppWidgets.edgeInsetsSymmetric(horizontal: 24),
       child: Row(
@@ -66,7 +75,7 @@ class AEDBottomButtonsRow extends StatelessWidget {
             AppStrings.save,
             textColor: AppColors.white,
             onPressed: () {
-              //TODO:
+              cubit.onSaveEmpoyeeDetailsTap(context);
             },
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realtime_innovations_coding/utils/app_colors.dart';
 import 'package:realtime_innovations_coding/utils/app_text_styles.dart';
 import 'package:realtime_innovations_coding/utils/page_utils.dart';
@@ -287,5 +288,17 @@ class AppWidgets {
       // PageUtils.popRoute(context);
       _isDialogOpen = false;
     }
+  }
+
+  static void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColors.primaryBgColor,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 }
