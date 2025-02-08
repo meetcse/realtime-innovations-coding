@@ -34,7 +34,7 @@ class AEDMainBody extends StatelessWidget {
     return BlocListener<AddEmployeeDetailsScreenCubit, AddEmployeeDetailsScreenState>(
       listener: (context, state) {
         if (state is AEDSShowToastState) {
-          AppWidgets.showToast(state.message);
+          AppWidgets.showToast(context, state.message);
         }
       },
       child: Column(

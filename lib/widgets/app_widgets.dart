@@ -290,15 +290,12 @@ class AppWidgets {
     }
   }
 
-  static void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: AppColors.primaryBgColor,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
+  static void showToast(BuildContext context, String message, {Function()? onPressed}) {
+    var snackBar = SnackBar(
+        backgroundColor: AppColors.appTextColor,
+        action: onPressed != null ? SnackBarAction(label: "Undo", onPressed: onPressed) : null,
+        content: AppWidgets.textWidget(message,
+            textStyle: AppTextStyles.appTextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w400)));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
