@@ -45,11 +45,16 @@ class EmployeeListScreenCubit extends Cubit<EmployeeListScreenState> {
   }
 
   void onFLoatingActionButtonTap(BuildContext context, {EmployeeModel? employee}) async {
-    await PageUtils.pushNamed(
+    var data = await PageUtils.pushNamed(
       context,
       RoutesNameConstants.addEmployeeDetailsScreen,
       arguments: employee != null ? {RoutesArgumentsConstants.employeeModel: employee} : null,
     );
+
+    if (data != null && data is EmployeeModel) {
+      await deleteEmployeeData(data);
+    }
+
     await _fetchEmployeesData();
   }
 

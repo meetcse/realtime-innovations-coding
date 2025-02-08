@@ -22,7 +22,19 @@ class AddEmployeeDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => AddEmployeeDetailsScreenCubit()..initialize(employeeModel),
-      child: const CommonScaffoldScreen(appBarTitle: AppStrings.addEmployeeDetails, body: AEDMainBody()),
+      child: CommonScaffoldScreen(
+          appBarActions: employeeModel == null
+              ? null
+              : [
+                  GestureDetector(
+                      onTap: () {
+                        PageUtils.popRoute(context, result: employeeModel);
+                      },
+                      child: AppWidgets.icon(Icons.delete_outline_outlined, color: AppColors.white)),
+                  AppWidgets.spacingWidget(0, 16)
+                ],
+          appBarTitle: employeeModel != null ? AppStrings.editEmployeeDetails : AppStrings.addEmployeeDetails,
+          body: const AEDMainBody()),
     );
   }
 }
