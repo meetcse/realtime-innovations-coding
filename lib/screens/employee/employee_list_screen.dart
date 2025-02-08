@@ -41,7 +41,13 @@ class ELMainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<EmployeeListScreenCubit>(context);
 
-    return BlocBuilder<EmployeeListScreenCubit, EmployeeListScreenState>(builder: (context, state) {
+    return BlocConsumer<EmployeeListScreenCubit, EmployeeListScreenState>(listener: (context, state) {
+      if (state is ELSSShowToastState) {
+        AppWidgets.showToast(context, state.message, onPressed: () {
+          cubit.onUndoDeletePressed();
+        });
+      }
+    }, builder: (context, state) {
       if (cubit.currentEmployeesList.isEmpty && cubit.previousEmployeesList.isEmpty) {
         return const ELNoEmpRecordsWidget();
       }
@@ -164,12 +170,14 @@ class ELEmployeeListWidget extends StatelessWidget {
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
+        extentRatio: 0.2,
         children: [
           SlidableAction(
+            autoClose: true,
             // An action can be bigger than the others.
             flex: 1,
             onPressed: (_) {
-              //TODO:
+              cubit.deleteEmployeeData(employee);
             },
             backgroundColor: AppColors.redBgColor,
             foregroundColor: Colors.white,

@@ -17,6 +17,8 @@ class EmployeeListScreenCubit extends Cubit<EmployeeListScreenState> {
   final List<EmployeeModel> _currentEmployeesList = [];
   final List<EmployeeModel> _previousEmployeesList = [];
 
+  EmployeeModel? _currentDeletingEmployeeModel;
+
   List<EmployeeModel> get currentEmployeesList => _currentEmployeesList;
   List<EmployeeModel> get previousEmployeesList => _previousEmployeesList;
 
@@ -49,6 +51,33 @@ class EmployeeListScreenCubit extends Cubit<EmployeeListScreenState> {
       arguments: employee != null ? {RoutesArgumentsConstants.employeeModel: employee} : null,
     );
     await _fetchEmployeesData();
+  }
+
+  Future<void> deleteEmployeeData(EmployeeModel employee) async {
+    try {
+      _currentDeletingEmployeeModel = employee;
+      employee.isDeleted = 1;
+      await EmployeeDbServices().updateEmployee(employee);
+
+      await _fetchEmployeesData();
+
+      emit(const ELSSShowToastState(AppStrings.employeeDataDeleted));
+    } catch (error) {
+      log("Error in deleting : " + error.toString());
+    }
+  }
+
+  Future<void> onUndoDeletePressed() async {
+    try {
+      if (_currentDeletingEmployeeModel != null) {
+        _currentDeletingEmployeeModel!.isDeleted = 0;
+        await EmployeeDbServices().updateEmployee(_currentDeletingEmployeeModel!);
+
+        await _fetchEmployeesData();
+      }
+    } catch (error) {
+      log("Error in deleting : " + error.toString());
+    }
   }
 
   Future<void> _fetchEmployeesData() async {

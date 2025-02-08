@@ -292,7 +292,13 @@ class AppWidgets {
   static void showToast(BuildContext context, String message, {Function()? onPressed}) {
     var snackBar = SnackBar(
         backgroundColor: AppColors.appTextColor,
-        action: onPressed != null ? SnackBarAction(label: "Undo", onPressed: onPressed) : null,
+        action: onPressed != null
+            ? SnackBarAction(
+                label: "Undo",
+                onPressed: onPressed,
+                textColor: AppColors.primaryBgColor,
+              )
+            : null,
         content: AppWidgets.textWidget(message,
             textStyle: AppTextStyles.appTextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w400)));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

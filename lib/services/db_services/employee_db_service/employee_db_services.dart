@@ -88,7 +88,8 @@ class EmployeeDbServices {
       if (dbClient != null) {
         queryResult = await dbClient.rawQuery('''
 SELECT * FROM $_employeeTableName
-WHERE endDate IS NULL
+WHERE endDate IS NULL AND
+(isDeleted IS NULL OR isDeleted = 0)
 ''');
 
         log("Query result for current employees : " + queryResult.toString());
@@ -114,7 +115,8 @@ WHERE endDate IS NULL
       if (dbClient != null) {
         queryResult = await dbClient.rawQuery('''
 SELECT * FROM $_employeeTableName
-WHERE endDate IS NOT NULL
+WHERE endDate IS NOT NULL AND
+(isDeleted IS NULL OR isDeleted = 0)
 ''');
 
         if (queryResult.isNotEmpty) {
